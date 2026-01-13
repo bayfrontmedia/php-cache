@@ -9,6 +9,8 @@ used to store metadata and tag sets.
 Example:
 
 ```php
+$redis = new Redis();
+
 try {
     $redis->pconnect('10.0.0.1', 6379, 2, 'cache');
 } catch (RedisException $e) {
