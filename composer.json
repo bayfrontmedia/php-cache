@@ -1,0 +1,46 @@
+{
+  "name": "bayfrontmedia/php-cache",
+  "description": "A PSR-6 cache implementation which supports tags, metadata, hit counters, locking, and more.",
+  "homepage": "https://github.com/bayfrontmedia/php-cache",
+  "license" : "MIT",
+  "type": "library",
+  "keywords": [
+    "cache",
+    "psr-6",
+    "psr6",
+    "redis",
+    "tags",
+    "compress",
+    "serialize",
+    "meta"
+  ],
+  "authors": [
+    {
+      "name": "John Robinson",
+      "email": "john@bayfrontmedia.com",
+      "homepage": "https://www.bayfrontmedia.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/bayfrontmedia/php-cache/issues"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist"
+  },
+  "require": {
+    "php": ">=8.0",
+    "ext-redis": "*",
+    "bayfrontmedia/php-array-helpers": "^2.2",
+    "bayfrontmedia/php-string-helpers": "^2.3",
+    "psr/cache": "^3.0"
+  },
+  "suggest": {
+    "ext-zlib": "Required for GZIP compression"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bayfront\\Cache\\": "src/"
+    }
+  }
+}
