@@ -36,6 +36,7 @@
     "psr/cache": "^3.0"
   },
   "suggest": {
+    "ext-igbinary": "Required for igbinary serialization",
     "ext-zlib": "Required for GZIP compression"
   },
   "autoload": {

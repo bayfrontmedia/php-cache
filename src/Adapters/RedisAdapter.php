@@ -310,7 +310,7 @@ local item_key = KEYS[1]
 local meta_key = KEYS[2]
 local value = redis.call('GET', item_key)
 local meta = {}
-if value ~= false then
+if value and string.len(value) > 0 then
     redis.call('HINCRBY', meta_key, 'hits', 1)
     meta = redis.call('HGETALL', meta_key)
 end
@@ -329,7 +329,7 @@ for i = 1, #KEYS, 2 do
     local meta_key = KEYS[i + 1]
     local value = redis.call('GET', item_key)
     local meta = {}
-    if value ~= false then
+    if value and string.len(value) > 0 then
         redis.call('HINCRBY', meta_key, 'hits', 1)
         meta = redis.call('HGETALL', meta_key)
         table.insert(result, item_key)
@@ -362,10 +362,7 @@ for _, full_key in ipairs(keys) do
     local item_key = item_prefix .. full_key
     local meta_key = meta_prefix .. full_key
     local value = redis.call('GET', item_key)
-    if value == false then
-        -- Mark for removal if the item doesn't exist
-        table.insert(orphaned, full_key)
-    else
+    if value and string.len(value) > 0 then
         -- Increment hits and get metadata
         redis.call('HINCRBY', meta_key, 'hits', 1)
         local meta = redis.call('HGETALL', meta_key)
@@ -373,6 +370,9 @@ for _, full_key in ipairs(keys) do
         table.insert(result, item_key)
         table.insert(result, value)
         table.insert(result, meta)
+    else
+        -- Mark for removal if the item doesn't exist
+        table.insert(orphaned, full_key)
     end
 end
 -- Cleanup orphaned keys from the tag set
